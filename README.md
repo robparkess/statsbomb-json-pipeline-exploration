@@ -95,7 +95,9 @@ Conceptually, this represents the final stage of the pipeline:
 ```
 Raw JSON → Python processing → Structured tables → Interactive dashboard
 ```
+### Dashboard Preview
 
+![Dashboard Preview](outputs/dashboard_preview.png)
 ---
 
 ## Outputs
