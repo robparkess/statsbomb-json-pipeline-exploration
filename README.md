@@ -1,62 +1,125 @@
-# StatsBomb JSON Familiarisation and Analytics Pipeline Foundations
+StatsBomb JSON Exploration and Pipeline Foundations
 
-## Overview
+Overview
 
-This repository contains exploratory work using publicly available StatsBomb football event data. The purpose of this work is to build a solid understanding of StatsBomb style JSON data formats and to use that understanding as a foundation for designing an end to end analytics pipeline for a future MSc thesis project.
+This repository explores the structure and behaviour of publicly available StatsBomb event data as a foundation for designing an end-to-end football analytics pipeline.
 
-The focus at this stage is on data structure, schema understanding, and abstraction rather than advanced analysis or modelling.
+The goal is not advanced modelling, but rather to understand:
 
----
+• How raw event data is structured
+• How nested JSON can be flattened into clean tabular formats
+• How structured outputs behave inside an interactive dashboard layer
 
-## Data Source
+This work forms the early architectural thinking for a future MSc thesis project focused on applied football analytics and pipeline design.
 
-The data used in this repository comes from the StatsBomb Open Data repository. A single match events JSON file was selected as a representative sample for exploration.
+⸻
 
-StatsBomb event data is provided in JSON format, with each match represented as a list of event objects. Each event corresponds to a single on pitch action or state change, such as a pass, shot, duel, or lineup declaration.
+Data Source
 
----
+The data used in this repository comes from the publicly available StatsBomb Open Data repository.
 
-## What Was Explored
+StatsBomb event data is provided in JSON format, where each match is represented as a list of event objects. Each event corresponds to a single on-pitch action or state change, such as:
 
-The work in this repository covers the following:
+• Pass
+• Shot
+• Duel
+• Possession change
+• Lineup declaration
 
-- Exploration of StatsBomb open data structure and file conventions
-- Inspection of raw event level JSON data
-- Identification of key fields such as event type, team, player, time, location, and possession
-- Examination of nested objects for complex actions such as passes, shots, and tactical information
-- Extraction of Starting XI information from event data
-- Creation of basic exploratory visualisations, including:
-  - Shot location plots
-  - Pass maps for a single team
-  - Event timelines across a match
-- Conversion of raw JSON data into analysis ready tabular structures
+This structure makes JSON suitable as a raw ingestion format but requires transformation for downstream analytical use.
 
----
+⸻
 
-## Analysis Ready Tables
+Exploration Phase
 
-As part of the exploration, two simple tables were created to demonstrate how raw event data can be flattened and prepared for downstream analysis:
+The following areas were explored:
 
-- `events_basic`: one row per event with common contextual fields
-- `passes`: one row per pass event with start and end locations and key pass attributes
+• StatsBomb open data folder structure and file conventions
+• Inspection of raw event-level JSON
+• Identification of key fields such as event type, team, player, timestamp, location, and possession
+• Examination of nested objects for complex actions (passes, shots, tactical structures)
+• Extraction of Starting XI information from event data
+• Creation of basic exploratory visualisations, including:
+	•	Shot location plots
+	•	Pass maps
+	•	Event timelines
 
-These tables represent the type of structured data that would later be stored in a database as part of a full analytics pipeline.
+The focus was on schema understanding and abstraction rather than deep statistical modelling.
 
----
+⸻
 
-## Outputs
+Analysis-Ready Tables
 
-The `outputs` folder contains exported CSV files and basic visualisations generated during exploration. These outputs are included to demonstrate how raw JSON data can be transformed into usable analytical artefacts.
+To simulate the transformation stage of an analytics pipeline, raw JSON was flattened into two structured tables:
 
----
+events_basic
 
-## Relevance to Future Work
+One row per event with contextual fields such as:
 
-This exploratory work provides a foundation for future pipeline design by clarifying:
+• match_id
+• event_id
+• minute / second
+• team
+• player
+• event type
+• location
 
-- What football event data looks like at the raw input level
-- How nested JSON structures need to be flattened and validated
-- What minimum fields are required for analysis
-- How StatsBomb style data can act as a template for integrating data from other providers
+passes
 
-This understanding will inform later stages of the MSc thesis, including data ingestion design, database schema development, analysis workflows, and visualisation.
+One row per pass event containing:
+
+• start and end coordinates
+• passer and recipient
+• pass outcome
+• length and angle
+
+These tables represent the kind of structured data that would later be stored in a relational database within a full analytics pipeline.
+
+⸻
+
+Interactive Dashboard Layer
+
+To test how well the structured outputs behave in a consumption environment, the CSV tables were loaded into an interactive Plotly dashboard built inside Jupyter.
+
+The dashboard includes:
+
+• Team and player filters
+• Events per minute timeline
+• Pass counts by player
+• Pass start location visualisation
+
+This stage demonstrates how upstream data engineering decisions directly affect downstream usability. Because the tables were clean and consistently structured, no additional transformation was required in the dashboard layer.
+
+Conceptually, this represents the final stage of the pipeline:
+
+Raw JSON → Python processing → Structured tables → Interactive dashboard
+
+⸻
+
+Outputs
+
+The outputs folder contains:
+
+• Flattened CSV tables
+• Basic static visualisations
+• Artefacts used to validate structure and schema
+
+These files illustrate the transition from raw JSON ingestion to analysis-ready data.
+
+⸻
+
+Relevance to Future Work
+
+This exploratory work clarifies:
+
+• The assumptions required at the ingestion stage
+• The minimum viable schema for football event data
+• How nested JSON must be flattened and validated
+• How clean upstream modelling simplifies downstream visualisation
+
+These insights will inform future stages of the MSc thesis, including:
+
+• Data ingestion design
+• Database schema modelling
+• Analytical workflows
+• Interactive reporting environments
