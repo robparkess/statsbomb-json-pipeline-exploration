@@ -16,7 +16,7 @@ This work forms the early architectural thinking for a future MSc thesis project
 
 ## Data Source
 
-The data used in this repository comes from the publicly available StatsBomb Open Data repository.
+The data used in this repository comes from the publicly available **StatsBomb Open Data** repository.
 
 StatsBomb event data is provided in JSON format, where each match is represented as a list of event objects. Each event corresponds to a single on-pitch action or state change, such as:
 
@@ -58,20 +58,21 @@ One row per event with contextual fields such as:
 
 - `match_id`  
 - `event_id`  
-- `minute` / `second`  
+- `minute`  
+- `second`  
 - `team`  
 - `player`  
-- `event type`  
+- `event_type`  
 - `location`  
 
 ### `passes`
 
 One row per pass event containing:
 
-- start and end coordinates  
-- passer and recipient  
-- pass outcome  
-- length and angle  
+- Start and end coordinates  
+- Passer and recipient  
+- Pass outcome  
+- Length and angle  
 
 These tables represent the kind of structured data that would later be stored in a relational database within a full analytics pipeline.
 
@@ -79,36 +80,59 @@ These tables represent the kind of structured data that would later be stored in
 
 ## Interactive Dashboard Layer
 
-To test how well the structured outputs behave in a consumption environment, the CSV tables were loaded into an interactive Plotly dashboard built inside Jupyter.
+To test how well the structured outputs behave in a consumption environment, the CSV tables were loaded into interactive dashboard environments.
 
-The dashboard includes:
+### 1. Jupyter (Plotly + ipywidgets)
+
+An interactive dashboard was built directly inside Jupyter to test:
 
 - Team and player filters  
 - Events per minute timeline  
 - Pass counts by player  
 - Pass start location visualisation  
 
-This stage demonstrates how upstream data engineering decisions directly affect downstream usability. Because the tables were clean and consistently structured, no additional transformation was required in the dashboard layer.
+This demonstrated that clean upstream modelling allows direct interactive use without further transformation.
 
-Conceptually, this represents the final stage of the pipeline:
+### 2. Tableau Public
 
-```
-Raw JSON → Python processing → Structured tables → Interactive dashboard
-```
-### Dashboard Preview
+The same structured CSV outputs were imported into Tableau Public to simulate a real analyst or coach-facing reporting environment.
 
-![Dashboard Preview](outputs/dashboard_preview.png)
+The Tableau dashboard includes:
+
+- Interactive team filtering  
+- Player selection  
+- Events over time visualisation  
+- Pass count by player (ranked)  
+- Pass start location scatter plot  
+
+This reinforces how structured, pipeline-ready tables integrate smoothly into BI tools.
+
+---
+
+## Conceptual Pipeline
+
+This project represents the following end-to-end structure:
+
+**Raw JSON → Python processing → Structured tables → Interactive dashboard (Jupyter / Tableau)**
+
+---
+
+## Dashboard Preview
+
+![Tableau Dashboard Preview](outputs/dashboard_tableau_preview.png)
+
 ---
 
 ## Outputs
 
-The `outputs` folder contains:
+The `outputs/` folder contains:
 
 - Flattened CSV tables  
 - Basic static visualisations  
+- Dashboard preview image  
 - Artefacts used to validate structure and schema  
 
-These files illustrate the transition from raw JSON ingestion to analysis-ready data.
+These files illustrate the transition from raw JSON ingestion to analysis-ready data and ultimately into an interactive reporting layer.
 
 ---
 
